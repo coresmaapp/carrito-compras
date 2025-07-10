@@ -20,6 +20,10 @@ export class Login {
     
     this.auth.login('admin', '123456').subscribe((response) => {
       console.log(response);
+    }, (error) => {
+      this.username = '';
+      this.password = '';
+      console.log(error);
     });
   }
 }
