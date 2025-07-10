@@ -8,8 +8,8 @@ export class Auth {
 
   constructor(private http: HttpClient) { }
 
-  login(user: string, pass: string) {
-    return this.http.post('https://softder.com/api/token/', { user, pass });
+  login(username: string, password: string) {
+    return this.http.post('api/api/token/', { username, password });
   }
 
   
