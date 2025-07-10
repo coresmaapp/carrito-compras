@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  isAuthenticated = false;
-
-  login(user: string, pass: string): boolean {
-    this.isAuthenticated = true;
-    return this.isAuthenticated;
+  login(user: string, pass: string) {
+    return this.http.post('https://softder.com/api/token/', { user, pass });
   }
+
+  
 }

@@ -11,8 +11,8 @@ export class Login {
   constructor(private auth: Auth) {}
 
   login() {
-    let isAuthenticated = this.auth.login('admin', '123456');
-    console.log(isAuthenticated);
-    
+    this.auth.login('admin', '123456').subscribe((response) => {
+      console.log(response);
+    });
   }
 }
