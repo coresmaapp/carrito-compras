@@ -1,0 +1,298 @@
+
+<div class="product-form-card">
+    <div class="product-form-header">
+        <h2>Alta de Productos</h2>
+        <p>Registra nuevos productos en el sistema</p>
+    </div>
+    
+    <form class="product-form">
+        <!-- Información básica del producto -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="product-name">Nombre del Producto</label>
+                <input type="text" id="product-name" name="product-name" placeholder="Ej: Laptop HP Pavilion" required>
+            </div>
+            <div class="form-group">
+                <label for="product-code">Código de Producto</label>
+                <input type="text" id="product-code" name="product-code" placeholder="Ej: LP001" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="product-category">Categoría</label>
+                <select id="product-category" name="product-category" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="electronics">Electrónicos</option>
+                    <option value="clothing">Ropa</option>
+                    <option value="books">Libros</option>
+                    <option value="home">Hogar</option>
+                    <option value="sports">Deportes</option>
+                    <option value="other">Otros</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="product-brand">Marca</label>
+                <input type="text" id="product-brand" name="product-brand" placeholder="Ej: HP, Nike, Samsung">
+            </div>
+        </div>
+
+        <!-- Precios y stock -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="product-price">Precio de Venta</label>
+                <input type="number" id="product-price" name="product-price" placeholder="0.00" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="product-cost">Precio de Costo</label>
+                <input type="number" id="product-cost" name="product-cost" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label for="product-stock">Stock Disponible</label>
+                <input type="number" id="product-stock" name="product-stock" placeholder="0" min="0" required>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="product-weight">Peso (kg)</label>
+                <input type="number" id="product-weight" name="product-weight" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label for="product-dimensions">Dimensiones (cm)</label>
+                <input type="text" id="product-dimensions" name="product-dimensions" placeholder="Largo x Ancho x Alto">
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-group full-width">
+            <label for="product-description">Descripción del Producto</label>
+            <textarea id="product-description" name="product-description" placeholder="Describe las características del producto..."></textarea>
+        </div>
+
+        <!-- Información de proveedor -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="product-supplier">Proveedor</label>
+                <input type="text" id="product-supplier" name="product-supplier" placeholder="Nombre del proveedor">
+            </div>
+            <div class="form-group">
+                <label for="product-supplier-code">Código de Proveedor</label>
+                <input type="text" id="product-supplier-code" name="product-supplier-code" placeholder="Código interno del proveedor">
+            </div>
+        </div>
+
+        <!-- Estado y visibilidad -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="product-status">Estado</label>
+                <select id="product-status" name="product-status" required>
+                    <option value="active">Activo</option>
+                    <option value="inactive">Inactivo</option>
+                    <option value="discontinued">Descontinuado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="product-visibility">Visibilidad</label>
+                <select id="product-visibility" name="product-visibility" required>
+                    <option value="visible">Visible en catálogo</option>
+                    <option value="hidden">Oculto del catálogo</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Guardar Producto
+            </button>
+            <button type="reset" class="btn btn-secondary">
+                Limpiar Formulario
+            </button>
+            <a href="#" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Tabla de Productos -->
+<div class="products-table-card">
+    <div class="table-header">
+        <h3>Productos Registrados</h3>
+        <div class="table-actions">
+            <button class="btn btn-primary btn-sm">
+                <span>➕</span> Nuevo Producto
+            </button>
+            <div class="search-box">
+                <input type="text" placeholder="Buscar productos..." class="search-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-row table-header-row">
+            <div class="table-cell">Código</div>
+            <div class="table-cell">Nombre</div>
+            <div class="table-cell">Categoría</div>
+            <div class="table-cell">Precio</div>
+            <div class="table-cell">Stock</div>
+            <div class="table-cell">Estado</div>
+            <div class="table-cell">Acciones</div>
+        </div>
+
+        <!-- Producto 1 -->
+        <div class="table-row">
+            <div class="table-cell">LP001</div>
+            <div class="table-cell">Laptop HP Pavilion</div>
+            <div class="table-cell">Electrónicos</div>
+            <div class="table-cell">$1,299.99</div>
+            <div class="table-cell">
+                <span class="stock-badge stock-high">15</span>
+            </div>
+            <div class="table-cell">
+                <span class="status-badge status-active">Activo</span>
+            </div>
+            <div class="table-cell">
+                <div class="action-buttons">
+                    <button class="btn-action btn-edit" title="Editar">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" title="Eliminar">
+                        🗑️
+                    </button>
+                    <button class="btn-action btn-view" title="Ver detalles">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="table-row">
+            <div class="table-cell">SP002</div>
+            <div class="table-cell">Smartphone Samsung Galaxy</div>
+            <div class="table-cell">Electrónicos</div>
+            <div class="table-cell">$899.99</div>
+            <div class="table-cell">
+                <span class="stock-badge stock-medium">8</span>
+            </div>
+            <div class="table-cell">
+                <span class="status-badge status-active">Activo</span>
+            </div>
+            <div class="table-cell">
+                <div class="action-buttons">
+                    <button class="btn-action btn-edit" title="Editar">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" title="Eliminar">
+                        🗑️
+                    </button>
+                    <button class="btn-action btn-view" title="Ver detalles">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="table-row">
+            <div class="table-cell">BK003</div>
+            <div class="table-cell">Libro Angular Avanzado</div>
+            <div class="table-cell">Libros</div>
+            <div class="table-cell">$45.99</div>
+            <div class="table-cell">
+                <span class="stock-badge stock-low">3</span>
+            </div>
+            <div class="table-cell">
+                <span class="status-badge status-active">Activo</span>
+            </div>
+            <div class="table-cell">
+                <div class="action-buttons">
+                    <button class="btn-action btn-edit" title="Editar">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" title="Eliminar">
+                        🗑️
+                    </button>
+                    <button class="btn-action btn-view" title="Ver detalles">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="table-row">
+            <div class="table-cell">CL004</div>
+            <div class="table-cell">Camiseta Nike Sport</div>
+            <div class="table-cell">Ropa</div>
+            <div class="table-cell">$29.99</div>
+            <div class="table-cell">
+                <span class="stock-badge stock-out">0</span>
+            </div>
+            <div class="table-cell">
+                <span class="status-badge status-inactive">Inactivo</span>
+            </div>
+            <div class="table-cell">
+                <div class="action-buttons">
+                    <button class="btn-action btn-edit" title="Editar">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" title="Eliminar">
+                        🗑️
+                    </button>
+                    <button class="btn-action btn-view" title="Ver detalles">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 5 -->
+        <div class="table-row">
+            <div class="table-cell">HM005</div>
+            <div class="table-cell">Lámpara de Mesa LED</div>
+            <div class="table-cell">Hogar</div>
+            <div class="table-cell">$79.99</div>
+            <div class="table-cell">
+                <span class="stock-badge stock-high">22</span>
+            </div>
+            <div class="table-cell">
+                <span class="status-badge status-active">Activo</span>
+            </div>
+            <div class="table-cell">
+                <div class="action-buttons">
+                    <button class="btn-action btn-edit" title="Editar">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" title="Eliminar">
+                        🗑️
+                    </button>
+                    <button class="btn-action btn-view" title="Ver detalles">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="table-pagination">
+        <div class="pagination-info">
+            Mostrando 1-5 de 25 productos
+        </div>
+        <div class="pagination-controls">
+            <button class="btn btn-secondary btn-sm">← Anterior</button>
+            <div class="page-numbers">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+            </div>
+            <button class="btn btn-secondary btn-sm">Siguiente →</button>
+        </div>
+    </div>
+</div>
