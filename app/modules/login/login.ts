@@ -18,7 +18,7 @@ export class Login {
   login() {
     console.log(this.username, this.password);
     
-    this.auth.login('admin', '123456').subscribe((response) => {
+    this.auth.login(this.username, this.password).subscribe((response) => {
       console.log(response);
     }, (error) => {
       this.username = '';
