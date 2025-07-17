@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://softder.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
