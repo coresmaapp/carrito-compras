@@ -5,7 +5,7 @@
             <p>Accede a la plataforma de gestión del carrito de compras</p>
         </div>
         
-        <form class="login-form">
+        <form class="login-form" (ngSubmit) = "login()">
             <div class="form-group">
                 <label for="email">Correo Electrónico</label>
                 <input [(ngModel)]="username" type="input" id="email" name="username" placeholder="tu@email.com">
@@ -25,7 +25,7 @@
                 <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
             </div>
             
-            <button type="submit" class="login-btn" (click)="login()">
+            <button type="submit" class="login-btn" >
                 Iniciar Sesión
             </button>
         </form>
