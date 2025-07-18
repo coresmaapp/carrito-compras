@@ -1,0 +1,27 @@
+/* Estilos para los mensajes de error de validación */
+.invalid-feedback {
+  color: #e74c3c; /* Un color rojo para indicar error */
+  font-size: 0.875em; /* Un poco más pequeño que el texto normal */
+  margin-top: 5px;
+  display: block; /* Asegura que ocupe su propio espacio */
+  height: 1em; /* Evita que el layout salte cuando aparece el mensaje */
+}
+
+/* Estilo para el borde del input cuando es inválido y ha sido tocado/modificado */
+.form-group input.ng-invalid.ng-touched,
+.form-group input.ng-invalid.ng-dirty {
+  border-color: #e74c3c;
+}
+
+/* Opcional: Añade un resplandor rojo al hacer foco en un input inválido */
+.form-group input.ng-invalid.ng-touched:focus,
+.form-group input.ng-invalid.ng-dirty:focus {
+  box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+}
+
+/* Estilos para el botón de Iniciar Sesión cuando está deshabilitado */
+.login-btn:disabled {
+  background-color: #bdc3c7; /* Un gris claro para indicar inactividad */
+  cursor: not-allowed; /* Cambia el cursor para mostrar que no es clickeable */
+  opacity: 0.7; /* Reduce la opacidad para un efecto visual de "apagado" */
+}

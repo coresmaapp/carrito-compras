@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthModel } from './models/auth.model';
 
@@ -6,7 +7,7 @@ import { Auth } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -22,7 +23,7 @@ export class Login {
   login() {
 
     console.log(this.authModel);
-    
+
     
     this.auth.login(this.authModel.username, this.authModel.password).subscribe((response) => {
       console.log(response);
