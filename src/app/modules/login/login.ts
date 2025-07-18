@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthModel } from './models/auth.model';
 
 import { Auth } from '../../core/services/auth';
 
@@ -12,17 +13,22 @@ import { Auth } from '../../core/services/auth';
 export class Login {
   constructor(private auth: Auth) {}
 
-  public username: string = '';
-  public password: string = '';
+  public authModel: AuthModel = {
+    username: '',
+    password: ''
+  };
+
 
   login() {
-    console.log(this.username, this.password);
+
+    console.log(this.authModel);
     
-    this.auth.login(this.username, this.password).subscribe((response) => {
+    
+    this.auth.login(this.authModel.username, this.authModel.password).subscribe((response) => {
       console.log(response);
     }, (error) => {
-      this.username = '';
-      this.password = '';
+      this.authModel.username = '';
+      this.authModel.password = '';
       console.log(error);
     });
   }
