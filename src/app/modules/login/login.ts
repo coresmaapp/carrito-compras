@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -19,7 +20,9 @@ export class Login {
 
   constructor(
     private fb: FormBuilder,
-    private auth: Auth) {
+    private auth: Auth,
+    private router: Router
+  ) {
 
     this.userForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
@@ -48,7 +51,7 @@ export class Login {
     this.auth.login(username, password).subscribe({
       next: (response) => {
         console.log(response);
-        // Aquí iría la lógica de éxito, como navegar al dashboard.
+        this.router.navigate(['/alta']);
       },
       error: (error) => {
         // Cuando el servicio devuelve un error, mostramos el mensaje.
