@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthModel } from './models/auth.model';
 
@@ -20,7 +20,7 @@ export class Login {
   constructor(
     private fb: FormBuilder,
     private auth: Auth) {
-      
+
     this.userForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
       password: ['', Validators.required]
