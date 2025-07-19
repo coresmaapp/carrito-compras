@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { Layout } from './layout/layout';
 
+import { authGuard } from '../app/core/guards/auth-guard'
+
 export const routes: Routes = [
   {
     path: '',
@@ -17,6 +19,7 @@ export const routes: Routes = [
       },
       {
         path: 'alta',
+        canActivate: [authGuard],
         loadComponent: () => import('./modules/altas/alta').then(m => m.Altas)
       },
     ]

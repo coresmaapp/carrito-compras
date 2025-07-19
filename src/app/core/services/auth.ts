@@ -11,22 +11,22 @@ export class Auth {
 
   set accessToken(token: string)
     {
-        localStorage.setItem('accessToken', token);
+        sessionStorage.setItem('accessToken', token);
     }
 
     get accessToken(): string
     {
-        return localStorage.getItem('accessToken') ?? '';
+        return sessionStorage.getItem('accessToken') ?? '';
     }
 
   set refreshToken(token: string)
   {
-    localStorage.setItem('refreshToken', token);
+    sessionStorage.setItem('refreshToken', token);
   }
   
   get refreshToken(): string
   {
-    return localStorage.getItem('refreshToken') ?? '';
+    return sessionStorage.getItem('refreshToken') ?? '';
   }
 
   constructor(private http: HttpClient) { }
