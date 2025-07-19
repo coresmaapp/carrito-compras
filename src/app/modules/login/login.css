@@ -25,3 +25,15 @@
   cursor: not-allowed; /* Cambia el cursor para mostrar que no es clickeable */
   opacity: 0.7; /* Reduce la opacidad para un efecto visual de "apagado" */
 }
+
+/* Estilos para el error general del formulario (usuario/contraseña incorrectos) */
+.login-error-feedback {
+  color: #c0392b; /* Un rojo más oscuro para el texto */
+  background-color: #f5c6cb; /* Un fondo rojo claro para destacar */
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 0.9em;
+}

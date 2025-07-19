@@ -5,25 +5,25 @@
             <p>Accede a la plataforma de gestión del carrito de compras</p>
         </div>
         
-        <form class="login-form" (ngSubmit) = "login()" #forma="ngForm">
+        <form class="login-form" (ngSubmit) = "login()" [formGroup]="userForm">
             <div class="form-group">
                 <label for="username">Nombre de Usuario</label>
-                <input [(ngModel)]="authModel.username" type="input" #username = "ngModel" id="username" name="username" required minlength="3" maxlength="10">
+                <input formControlName="username" type="input">
                 
-                <div class="invalid-feedback" *ngIf="username.invalid && (username.dirty || username.touched)">
-                    <span *ngIf="username?.errors?.['minlength']">Este campo debe tener al menos 3 caracteres</span>
-                    <span *ngIf="username?.errors?.['maxlength']">Este campo debe tener como máximo 10 caracteres</span>
-                    <span *ngIf="username?.errors?.['required']">Este campo es requerido</span>
+                <div class="invalid-feedback" *ngIf="form['username'].invalid && (form['username'].dirty || form['username'].touched)">
+                    <span *ngIf="form['username'].errors?.['minlength']">Este campo debe tener al menos 3 caracteres</span>
+                    <span *ngIf="form['username'].errors?.['maxlength']">Este campo debe tener como máximo 10 caracteres</span>
+                    <span *ngIf="form['username'].errors?.['required']">Este campo es requerido</span>
                 </div>
                 
             </div>
             
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input [(ngModel)]="authModel.password" type="password" #password = "ngModel" id="password" name="password" required>
+                <input formControlName="password" type="password">
 
-                <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)">
-                    <span *ngIf="password?.errors?.['required']">Este campo es requerido</span>
+                <div class="invalid-feedback" *ngIf="form['password'].invalid && (form['password'].dirty || form['password'].touched)">
+                    <span *ngIf="form['password'].errors?.['required']">Este campo es requerido</span>
                 </div>
 
             </div>
@@ -37,7 +37,12 @@
                 <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
             </div>
             
-            <button type="submit" class="login-btn" [disabled]="!forma.valid">
+            <!-- Bloque para mostrar el error de inicio de sesión -->
+            <div *ngIf="loginError" class="login-error-feedback">
+                {{ loginError }}
+            </div>
+
+            <button type="submit" class="login-btn" [disabled]="userForm.invalid">
                 Iniciar Sesión
             </button>
         </form>
