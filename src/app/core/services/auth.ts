@@ -29,6 +29,13 @@ export class Auth {
     return sessionStorage.getItem('refreshToken') ?? '';
   }
 
+  get clearStorage()
+  {
+    sessionStorage.clear();
+    return true;
+  }
+
+
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
