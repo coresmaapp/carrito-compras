@@ -6,7 +6,7 @@
                 <span>➕</span> Nuevo Producto
             </button>
             <div class="search-box">
-                <input type="text" placeholder="Buscar productos..." class="search-input">
+                <input #searchInput type="text" placeholder="Buscar productos..." class="search-input" (input)="onSearchInput(searchInput.value)">
             </div>
         </div>
     </div>
@@ -31,20 +31,20 @@
                 <div class="product-info">
                     <div class="product-name">{{ product.name }}</div>
                     <div class="product-description" *ngIf="product.description">
-                        sasasa
+                        {{ product.description }}
                     </div>
                 </div>
             </div>
             <div class="table-cell"> {{product.category_name}}</div>
-            <div class="table-cell">${{ product.price }}</div>
+            <div class="table-cell">{{ formatPrice(product.price) }}</div>
             <div class="table-cell">
-                <span class="stock-badge">
+                <span class="stock-badge" [ngClass]="getStockBadgeClass(product.stock)">
                     {{ product.stock }}
                 </span>
             </div>
             <div class="table-cell">
-                <span class="status-badge">
-                    {{ product.is_active === true ? 'Activo' : 'Inactivo' }}
+                <span class="status-badge" [ngClass]="getStatusBadgeClass(product.is_active)">
+                    {{ getStatusText(product.is_active) }}
                 </span>
             </div>
             <div class="table-cell">
