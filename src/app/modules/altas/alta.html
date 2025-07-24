@@ -1,4 +1,4 @@
-<div class="products-table-card" >
+<div class="products-table-card">
     <div class="table-header">
         <h3>Productos Registrados</h3>
         <div class="table-actions">
@@ -24,14 +24,14 @@
             <div class="table-cell">Acciones</div>
         </div>
 
-        <!-- Productos dinámicos -->    
+        <!-- Productos dinámicos -->
         <div class="table-row" *ngFor="let product of products">
             <div class="table-cell">{{ product.id }}</div>
             <div class="table-cell">
                 <div class="product-info">
                     <div class="product-name">{{ product.name }}</div>
                     <div class="product-description" *ngIf="product.description">
-                      sasasa
+                        sasasa
                     </div>
                 </div>
             </div>
@@ -60,7 +60,28 @@
             <p>No se encontraron productos</p>
         </div>
 
-        
+        <!-- Paginación -->
+        <div class="table-pagination" *ngIf="totalPages > 1">
+            <div class="pagination-info"></div>
+            <div class="pagination-controls">
+
+                <button class="btn btn-secondary btn-sm" [disabled]="!has_previous"
+                    (click)="onPageChange(currentPage - 1)">
+                    ← Anterior
+                </button>
+
+                <div class="page-numbers">
+                    <button class="page-btn" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                        (click)="onPageChange(page)">
+                        {{ page }}
+                    </button>
+                </div>
+                
+                <button class="btn btn-secondary btn-sm" [disabled]="!has_next" (click)="onPageChange(currentPage + 1)">
+                    Siguiente →
+                </button>
+            </div>
+        </div>
 
 
     </div>
