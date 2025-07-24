@@ -1,119 +1,19 @@
-
-<!-- Formulario de Producto -->
-<div class="product-form-card" *ngIf="showForm">
-    <div class="product-form-header">
-        <h2>{{ isEditing ? 'Editar Producto' : 'Alta de Productos' }}</h2>
-        <p>{{ isEditing ? 'Modifica la información del producto' : 'Registra nuevos productos en el sistema' }}</p>
-    </div>
-    
-    <form class="product-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <!-- Información básica del producto -->
-        <div class="form-row">
-            <div class="form-group">
-                <label for="product-name">Nombre del Producto</label>
-                <input type="text" id="product-name" formControlName="name" placeholder="Ej: Laptop HP Pavilion" required>
-                <div class="error-message" *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
-                    El nombre es requerido y debe tener al menos 3 caracteres
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="product-category">Categoría</label>
-                <select id="product-category" formControlName="category" required>
-                    <option value="">Selecciona una categoría</option>
-                    <option *ngFor="let category of categories" [value]="category.id">
-                        {{ category.name }}
-                    </option>
-                </select>
-                <div class="error-message" *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
-                    La categoría es requerida
-                </div>
-            </div>
-        </div>
-
-        <!-- Precios y stock -->
-        <div class="form-row">
-            <div class="form-group">
-                <label for="product-price">Precio de Venta</label>
-                <input type="number" id="product-price" formControlName="price" placeholder="0.00" step="0.01" min="0" required>
-                <div class="error-message" *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
-                    El precio es requerido y debe ser mayor a 0
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="product-stock">Stock Disponible</label>
-                <input type="number" id="product-stock" formControlName="stock" placeholder="0" min="0" required>
-                <div class="error-message" *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
-                    El stock es requerido y debe ser mayor o igual a 0
-                </div>
-            </div>
-        </div>
-
-        <!-- Descripción -->
-        <div class="form-group full-width">
-            <label for="product-description">Descripción del Producto</label>
-            <textarea id="product-description" formControlName="description" placeholder="Describe las características del producto..." rows="4"></textarea>
-            <div class="error-message" *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
-                La descripción es requerida y debe tener al menos 10 caracteres
-            </div>
-        </div>
-
-        <!-- URL de imagen -->
-        <div class="form-group full-width">
-            <label for="product-image">URL de la Imagen</label>
-            <input type="url" id="product-image" formControlName="image_url" placeholder="https://ejemplo.com/imagen.jpg">
-        </div>
-
-        <!-- Estado -->
-        <div class="form-row">
-            <div class="form-group">
-                <label for="product-status">Estado</label>
-                <select id="product-status" formControlName="is_active" required>
-                    <option [value]="true">Activo</option>
-                    <option [value]="false">Inactivo</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Botones de acción -->
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid || isLoading">
-                {{ isLoading ? 'Guardando...' : (isEditing ? 'Actualizar Producto' : 'Guardar Producto') }}
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="hideForm()" [disabled]="isLoading">
-                Cancelar
-            </button>
-        </div>
-    </form>
-</div>
-
-<!-- Mensaje de error -->
-<div class="error-alert" *ngIf="errorMessage">
-    <p>{{ errorMessage }}</p>
-    <button (click)="errorMessage = ''">✕</button>
-</div>
-
-<!-- Tabla de Productos -->
-<div class="products-table-card" *ngIf="!showForm">
+<div class="products-table-card" >
     <div class="table-header">
         <h3>Productos Registrados</h3>
         <div class="table-actions">
-            <button class="btn btn-primary btn-sm" (click)="showCreateForm()" [disabled]="isLoading">
+            <button class="btn btn-primary btn-sm">
                 <span>➕</span> Nuevo Producto
             </button>
             <div class="search-box">
-                <input type="text" placeholder="Buscar productos..." class="search-input" 
-                       [value]="searchTerm" (input)="onSearch($event)">
+                <input type="text" placeholder="Buscar productos..." class="search-input">
             </div>
         </div>
     </div>
 
-    <!-- Loading spinner -->
-    <div class="loading-spinner" *ngIf="isLoading">
-        <div class="spinner"></div>
-        <p>Cargando productos...</p>
-    </div>
 
-    <div class="table-container" *ngIf="!isLoading">
+
+    <div class="table-container">
         <div class="table-row table-header-row">
             <div class="table-cell">Código</div>
             <div class="table-cell">Nombre</div>
@@ -124,76 +24,45 @@
             <div class="table-cell">Acciones</div>
         </div>
 
-        <!-- Productos dinámicos -->
+        <!-- Productos dinámicos -->    
         <div class="table-row" *ngFor="let product of products">
             <div class="table-cell">{{ product.id }}</div>
             <div class="table-cell">
                 <div class="product-info">
                     <div class="product-name">{{ product.name }}</div>
                     <div class="product-description" *ngIf="product.description">
-                        {{ product.description.length > 50 ? (product.description | slice:0:50) + '...' : product.description }}
+                      sasasa
                     </div>
                 </div>
             </div>
-            <div class="table-cell">{{ getCategoryName(product.category) }}</div>
-            <div class="table-cell">{{ formatPrice(product.price) }}</div>
+            <div class="table-cell"> {{product.category_name}}</div>
+            <div class="table-cell">${{ product.price }}</div>
             <div class="table-cell">
-                <span class="stock-badge" [class]="getStockBadgeClass(product.stock)">
+                <span class="stock-badge">
                     {{ product.stock }}
                 </span>
             </div>
             <div class="table-cell">
-                <span class="status-badge" [class]="getStatusBadgeClass(product.is_active)">
-                    {{ getStatusText(product.is_active) }}
+                <span class="status-badge">
+                    {{ product.is_active === true ? 'Activo' : 'Inactivo' }}
                 </span>
             </div>
             <div class="table-cell">
                 <div class="action-buttons">
-                    <button class="btn-action btn-edit" title="Editar" (click)="showEditForm(product)">
-                        ✏️
-                    </button>
-                    <button class="btn-action btn-delete" title="Eliminar" (click)="deleteProduct(product)">
-                        🗑️
-                    </button>
-                    <button class="btn-action btn-toggle" title="Cambiar estado" 
-                            (click)="toggleProductStatus(product)">
-                        {{ product.is_active ? '🔴' : '🟢' }}
-                    </button>
+                    <button class="btn-action btn-edit" title="Editar" (click)="showEditForm(product)">✏️</button>
+                    <button class="btn-action btn-delete" title="Eliminar" (click)="deleteProduct(product)">🗑️</button>
                 </div>
             </div>
         </div>
 
         <!-- Mensaje cuando no hay productos -->
-        <div class="no-products" *ngIf="products.length === 0 && !isLoading">
+        <div class="no-products" *ngIf="products.length === 0">
             <p>No se encontraron productos</p>
         </div>
+
+        
+
+
     </div>
 
-    <!-- Paginación -->
-    <div class="table-pagination" *ngIf="totalPages > 1">
-        <div class="pagination-info">
-            Mostrando {{ (currentPage - 1) * pageSize + 1 }}-{{ Math.min(currentPage * pageSize, totalItems) }} de {{ totalItems }} productos
-        </div>
-        <div class="pagination-controls">
-            <button class="btn btn-secondary btn-sm" 
-                    [disabled]="!has_previous" 
-                    (click)="onPageChange(currentPage - 1)">
-                ← Anterior
-            </button>
-            <div class="page-numbers">
-                <button class="page-btn" 
-                        *ngFor="let page of getPageNumbers()" 
-                        [class.active]="page === currentPage"
-                        (click)="onPageChange(page)">
-                    {{ page }}
-                </button>
-            </div>
-            <button class="btn btn-secondary btn-sm" 
-                    [disabled]="!has_next" 
-                    (click)="onPageChange(currentPage + 1)">
-                Siguiente →
-            </button>
-        </div>
-    </div>
 </div>
-
