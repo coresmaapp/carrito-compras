@@ -97,3 +97,5 @@
 
 
 <app-form *ngIf="showForm" [data]="user" (confirmEvent)="closeForm()" (FormEvent)="formDataEventModal($event)"></app-form>
+
+<app-delete *ngIf="showDelete" [data]="user" (confirmEvent)="confirmDelete($event)"></app-delete>

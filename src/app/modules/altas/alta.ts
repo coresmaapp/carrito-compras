@@ -8,11 +8,12 @@ import { ProductService } from '@core/services/product.service';
 import { Product, ProductResponse } from './models/product.model';
 
 import { Form } from '@modules/altas/form/form';
+import { Delete } from '@modules/altas/delete/delete';
 
 
 @Component({
   selector: 'app-producto',
-  imports: [CommonModule, Form],
+  imports: [CommonModule, Form, Delete],
   templateUrl: './alta.html',
   styleUrl: './alta.css'
 })
@@ -40,6 +41,8 @@ export class Altas implements OnInit, OnDestroy {
 
   showMessage: boolean = false;
   message: string = '';
+
+  showDelete: boolean = false;
 
   getPageNumbers(): number[] {
     const pages: number[] = [];
@@ -113,7 +116,19 @@ showEditForm(product: Product): void {
 
 
   deleteProduct(product: Product): void {
+    console.log('Eliminar producto:', product);
+    this.user = product; // Asignamos el producto a eliminar a la variable user
+    this.showDelete = true; // Mostramos el componente de eliminación
+  }
 
+  confirmDelete(data: any): void {
+    this.showDelete = false; // Ocultamos el componente de eliminación
+    this.user = {}; // Reseteamos los datos del usuario
+    if (data.success) {
+       this.message = data.message; // Actualizamos el mensaje
+      this.showMessage = true; // Mostramos el mensaje
+      this.loadProducts(this.currentPage, this.pageSize, this.currentSearchTerm); // Recargamos los productos
+    }
   }
 
   showCreateForm(): void {
