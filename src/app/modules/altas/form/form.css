@@ -1,0 +1,193 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro con opacidad */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Para que esté por encima de todo */
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  animation: fadeInUp 0.3s ease-out;
+  max-height: 90vh; /* Altura máxima para evitar que se salga de la pantalla */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Asegura que los bordes redondeados se apliquen al contenido */
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Hace que el formulario ocupe el espacio restante */
+  min-height: 0; /* Solución clave para que el scroll funcione dentro de un flex container */
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close-modal-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+  padding: 0.5rem;
+}
+
+.close-modal-btn:hover {
+  color: #000;
+}
+
+/* Estructura del Modal: Header, Body, Footer */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  flex-shrink: 0; /* Evita que el header se encoja */
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto; /* Habilita el scroll solo en el cuerpo del modal */
+  flex: 1; /* Permite que el cuerpo crezca y ocupe el espacio disponible */
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+  flex-shrink: 0; /* Evita que el footer se encoja */
+}
+
+/* Contenedor de los botones de acción */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem; /* Espacio entre los botones */
+}
+
+/* --- Estilos para el Toggle Switch --- */
+.form-group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 0; /* Espaciado vertical consistente */
+}
+
+/* Asegura que la etiqueta de texto no tenga márgenes extra */
+.form-group-toggle > label {
+  margin-bottom: 0;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+/* Ocultar el checkbox por defecto pero mantenerlo accesible */
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* El fondo del interruptor (la pista) */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #28a745; /* Color verde para 'activo' */
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* Error messages */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+
+.form-group input.ng-invalid.ng-touched {
+  border-color: #e74c3c;
+}
+
+.form-group input.ng-valid.ng-touched {
+  border-color: #27ae60;
+}
+
+.form-group textarea.ng-invalid.ng-touched {
+  border-color: #e74c3c;
+}
+
+.form-group textarea.ng-valid.ng-touched {
+  border-color: #27ae60;
+}
+
+.form-group select.ng-invalid.ng-touched {
+  border-color: #e74c3c;
+}
+
+.form-group select.ng-valid.ng-touched {
+  border-color: #27ae60;
+} 
+
+:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+    opacity: 0.6;
+}

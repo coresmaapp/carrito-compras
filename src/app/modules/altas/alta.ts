@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
@@ -7,34 +7,24 @@ import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from
 import { ProductService } from '@core/services/product.service';
 import { Product, ProductResponse } from './models/product.model';
 
+import { Form } from '@modules/altas/form/form';
+
+
 @Component({
   selector: 'app-producto',
-  imports: [CommonModule],
+  imports: [CommonModule, Form],
   templateUrl: './alta.html',
   styleUrl: './alta.css'
 })
 export class Altas implements OnInit, OnDestroy {
-  constructor(private productService: ProductService) { }
+  
+  constructor(private productService: ProductService) {
+   }
 
   products: Product[] = [];
 
-  // --- Lógica para Búsqueda Predictiva ---
-  // Usamos un Subject para manejar el input de búsqueda
-  // Esto nos permite emitir valores cada vez que el usuario escribe algo
   private searchSubject = new Subject<string>();
-
-  // Usamos un Subject para manejar la destrucción del componente
-  // Esto nos permite limpiar las suscripciones y evitar fugas de memoria
-  // Cuando el componente se destruye, emitimos un valor y completamos el Subject
-  // Esto es importante para evitar que el componente siga escuchando eventos
-  // después de que haya sido destruido.
-  // Esto es especialmente útil en aplicaciones Angular donde los componentes pueden ser creados y destruidos
-  // dinámicamente, como en el caso de rutas o componentes modales.
-  // Al usar un Subject, podemos asegurarnos de que no seguimos escuchando eventos
-  //Piensa en destroy$ como el botón de apagado de emergencia de tu componente.
   private destroy$ = new Subject<void>();
-  
-  
   private currentSearchTerm: string = '';
 
   // Paginación
@@ -44,6 +34,15 @@ export class Altas implements OnInit, OnDestroy {
   pageSize = 5;
   has_next = false;
   has_previous = false;
+
+  showForm: boolean = false;
+  user:{} = {
+    id: 1,
+    name: 'Elder',
+  };
+
+  showMessage: boolean = false;
+  message: string = '';
 
   getPageNumbers(): number[] {
     const pages: number[] = [];
@@ -80,11 +79,6 @@ export class Altas implements OnInit, OnDestroy {
       });
   }
 
-  /** Se llama en cada pulsación de tecla en el input de búsqueda */
-  // Aquí usamos el Subject para emitir el valor del input de búsqueda
-  // y luego lo procesamos en el ngOnInit para realizar la búsqueda.
-  // Esto permite que la búsqueda se realice de manera reactiva,
-  // actualizando los productos mostrados en la tabla cada vez que el usuario escribe algo.
   onSearchInput(searchTerm: string): void {
     this.searchSubject.next(searchTerm);
   }
@@ -121,23 +115,37 @@ export class Altas implements OnInit, OnDestroy {
 
   }
 
+  showCreateForm(): void {
+    console.log('Mostrar formulario de creación de producto');
+    console.log('Datos del usuario:', this.user);
+    
+    this.showForm = true;
+  }
+
+  closeForm(): void {
+    this.showForm = false;
+  }
+
+  formDataEventModal(data: any): void {
+    this.showMessage = true;
+    this.message = data.message;
+
+    this.showForm = false;
+    this.loadProducts(this.currentPage, this.pageSize, this.currentSearchTerm);
+  }
+
+
+  closeMessage(): void {
+    this.showMessage = false;
+    this.message = '';
+  }
+
 
 
   ngOnInit(): void {
     // Carga inicial de productos
     this.loadProducts(this.currentPage, this.pageSize, this.currentSearchTerm);
 
-    // Suscripción al stream de búsqueda
-    // Aquí nos suscribimos al Subject de búsqueda para recibir los términos de búsqueda
-    // y realizar la búsqueda de productos.
-    // Usamos takeUntil para asegurarnos de que nos desuscribimos cuando el componente
-    // se destruye, evitando fugas de memoria.
-    // También usamos debounceTime para esperar 300ms después de la última pulsación
-    // y distinctUntilChanged para evitar búsquedas innecesarias si el término no ha cambiado
-    // y filter para asegurarnos de que solo buscamos si el término tiene al menos 3 caracteres
-    // o si el campo está vacío (para mostrar todos los productos).
-    // Finalmente, usamos switchMap para cancelar cualquier petición anterior y lanzar una nueva
-    // cuando el usuario escribe algo nuevo.
     this.searchSubject.pipe(
       takeUntil(this.destroy$),// Nos desuscribimos al destruir el componente
       debounceTime(300), // Espera 300ms después de la última pulsación
@@ -158,9 +166,6 @@ export class Altas implements OnInit, OnDestroy {
     });
   }
 
-  // Nos desuscribimos del Subject al destruir el componente
-  // Esto es importante para evitar fugas de memoria y asegurarnos de que no seguimos escuchando
-  // eventos después de que el componente haya sido destruido.
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

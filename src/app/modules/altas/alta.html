@@ -1,8 +1,15 @@
+<!-- Mensaje de error -->
+<div class="success-alert" *ngIf="showMessage">
+    <p>{{message}}</p>
+    <button (click)="closeMessage()">✕</button>
+</div>
+
+
 <div class="products-table-card">
     <div class="table-header">
         <h3>Productos Registrados</h3>
         <div class="table-actions">
-            <button class="btn btn-primary btn-sm">
+            <button class="btn btn-primary btn-sm" (click)="showCreateForm()">
                 <span>➕</span> Nuevo Producto
             </button>
             <div class="search-box">
@@ -87,3 +94,6 @@
     </div>
 
 </div>
+
+
+<app-form *ngIf="showForm" [data]="user" (confirmEvent)="closeForm()" (FormEvent)="formDataEventModal($event)"></app-form>
