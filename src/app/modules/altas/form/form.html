@@ -78,7 +78,9 @@
                 Cancelar
             </button>
             <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-               Registrar Producto
+
+                {{ isEdit ? 'Actualizar Producto' : 'Registrar Producto' }}
+
             </button>
         </div> 
       </div>

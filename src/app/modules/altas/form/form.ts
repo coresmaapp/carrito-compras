@@ -40,6 +40,8 @@ export class Form {
     created_by: 0
   };
 
+  public isEdit: boolean = false;
+
   constructor(private productService: ProductService, private fb: FormBuilder) {
 
 
@@ -64,7 +66,9 @@ export class Form {
    onSubmit(): void {
 
     if (this.form.valid) {
-      this.productService.createProduct(this.form.value)
+
+      if (!this.isEdit) {
+        this.productService.createProduct(this.form.value)
         .subscribe({
           next: (response) => {
             console.log('Producto creado exitosamente:', response);
@@ -75,6 +79,20 @@ export class Form {
             console.error('Error al crear el producto:', error);
           }
         });
+      }else{
+        this.productService.updateProduct(this.data.id, this.form.value)
+        .subscribe({
+          next: (response) => {
+            console.log('Producto actualizado exitosamente:', response);
+            this.form.reset();
+            this.FormEvent.emit({ success: true, message: 'Producto actualizado exitosamente' });
+          },
+          error: (error) => {
+            console.error('Error al actualizar el producto:', error);
+          }
+        });
+      }
+
     } else {
       alert('Por favor, completa todos los campos requeridos correctamente.');
     }
@@ -87,10 +105,24 @@ export class Form {
 
   ngOnInit() {
     console.log('ID del usuario recibido:', this.data);
-    this.product.created_by = this.data.id || 0; // Asignar el ID del usuario al campo created_by
-    this.form.patchValue({
-      created_by: this.product.created_by
-    });
+    this.isEdit = this.data.isEdit;
+  
+    // this.form.patchValue({
+    //   name: this.data.name || '',
+    //   description: this.data.description || '',
+    //   price: this.data.price || '',
+    //   stock: this.data.stock || 0,
+    //   category: this.data.category || 0,
+    //   image_url: this.data.image_url || '',
+    //   is_active: this.data.is_active !== undefined ? this.data.is_active : true,
+    //   created_by: this.data.id || 0 // Asignamos el ID del usuario recibido
+    // });
+
+
+    this.form.patchValue(this.data);
+
+
+
   }
 
 }

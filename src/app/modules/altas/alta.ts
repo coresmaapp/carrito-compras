@@ -36,10 +36,7 @@ export class Altas implements OnInit, OnDestroy {
   has_previous = false;
 
   showForm: boolean = false;
-  user:{} = {
-    id: 1,
-    name: 'Elder',
-  };
+  user: any = {};
 
   showMessage: boolean = false;
   message: string = '';
@@ -107,9 +104,13 @@ export class Altas implements OnInit, OnDestroy {
   }
 
 
-  showEditForm(product: Product): void {
+showEditForm(product: Product): void {
+  console.log('Mostrar formulario de edición para el producto:', product);
+  this.showForm = true;
+  // Creamos un nuevo objeto con las propiedades del producto + la nueva propiedad
+  this.user = { ...product, isEdit: true }; 
+}
 
-  }
 
   deleteProduct(product: Product): void {
 
@@ -118,6 +119,8 @@ export class Altas implements OnInit, OnDestroy {
   showCreateForm(): void {
     console.log('Mostrar formulario de creación de producto');
     console.log('Datos del usuario:', this.user);
+    this.user = {}; // Reseteamos los datos para el formulario de creación
+    this.user.created_by = 1; // Aseguramos que el campo created_by esté presente
     
     this.showForm = true;
   }

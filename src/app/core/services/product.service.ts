@@ -28,4 +28,8 @@ export class ProductService {
     return this.http.post<Product>(this.apiUrl, request);
   }
 
+  updateProduct(id: number, request: CreateProductRequest): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}${id}/`, request);
+  }
+
 } 
