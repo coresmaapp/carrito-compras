@@ -1,0 +1,202 @@
+/* Estilo para el componente anfitrión (app-list) */
+:host {
+  width: 100%;
+}
+
+/* Contenedor principal de la página de productos */
+.products-container {
+  max-width: 1400px; /* Aumenta el ancho máximo del contenido */
+  margin: 0 auto; /* Centra el contenedor en la página */
+  padding: 2rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+/* Estilos del encabezado con título y búsqueda */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.table-header h3 {
+  font-size: 1.8rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.table-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  width: 250px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Cuadrícula responsiva para las tarjetas de producto */
+.product-grid {
+  display: grid;
+  /* 
+    - repeat(auto-fit, ...): Crea tantas columnas como quepan en el espacio disponible.
+    - minmax(300px, 1fr): Cada columna tendrá un ancho mínimo de 300px y se expandirá para ocupar el espacio sobrante (1fr).
+    Esto asegura que en pantallas grandes haya un máximo de 4 columnas (dentro del contenedor de 1400px) y en pantallas más pequeñas, las tarjetas se ajustarán automáticamente.
+  */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Estilo de cada tarjeta de producto */
+.product-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Contenedor de la imagen */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #f3f4f6;
+}
+
+.card-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+}
+
+/* Cuerpo de la tarjeta (info del producto) */
+.card-body {
+  padding: 1rem 1.25rem;
+  flex-grow: 1; /* Permite que el cuerpo crezca para alinear los footers */
+}
+
+.card-category {
+  display: inline-block;
+  background-color: #e0e7ff;
+  color: #4338ca;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.card-title {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Pie de la tarjeta (precio y botón) */
+.card-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+}
+
+.card-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.add-to-cart-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Insignia de Stock (reutilizada de alta.css con ajustes) */
+.stock-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.stock-high { background-color: #10b981; } /* Verde */
+.stock-medium { background-color: #f59e0b; } /* Ámbar */
+.stock-low { background-color: #ef4444; } /* Rojo */
+.stock-out { background-color: #6b7280; } /* Gris */
+
+/* Mensaje de "No hay productos" */
+.no-products {
+  grid-column: 1 / -1; /* Ocupa todo el ancho de la cuadrícula */
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: white;
+  border-radius: 12px;
+  color: #6b7280;
+}
+
+/* --- Estilos para el icono del carrito --- */
+.cart-icon-container {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.cart-icon {
+  font-size: 1.8rem; /* Tamaño del emoji */
+  color: #374151;
+}
+
+.cart-item-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ef4444; /* Rojo para llamar la atención */
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #f9fafb; /* Borde del color del fondo para separarlo */
+}

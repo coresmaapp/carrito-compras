@@ -10,12 +10,16 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'productos',
         pathMatch: 'full'
       },
       {
         path: 'login',
         loadComponent: () => import('./modules/login/login').then(m => m.Login)
+      },
+      {
+        path: 'productos',
+        loadComponent: () => import('./modules/productos/list/list').then(m => m.List)
       },
       {
         path: 'alta',

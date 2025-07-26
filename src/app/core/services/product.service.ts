@@ -36,4 +36,16 @@ export class ProductService {
     return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
 
+  getProductPublic(page: number = 1, pageSize: number = 10, search?: string): Observable<ProductResponse> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('page_size', pageSize.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+    
+    return this.http.get<ProductResponse>(`${environment.API_URL}api/shoppingcart/public-products/`, { params });
+  }
+
 } 

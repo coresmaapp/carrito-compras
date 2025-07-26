@@ -1,0 +1,67 @@
+<div class="products-container">
+    <div class="table-header">
+        <h3>¡Ofertas del día!</h3>
+        <div class="table-actions">
+            <div class="search-box">
+               <input #searchInput type="text" placeholder="Buscar productos..." class="search-input" (input)="onSearchInput(searchInput.value)">
+            </div>
+            <!-- TODO: Conectar el número de items a una variable del componente -->
+            <div class="cart-icon-container" title="Ver carrito">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-item-count">1</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cuadrícula de productos -->
+    <div class="product-grid">
+        <div class="product-card" *ngFor="let product of products">
+            <div class="card-image-container">
+                <!-- Usamos una imagen por defecto si no existe image_url -->
+                <img [src]="product.image_url || 'https://via.placeholder.com/300x200.png?text=Sin+Imagen'" [alt]="product.name">
+                <span class="stock-badge" [ngClass]="getStockBadgeClass(product.stock)">
+                    {{ product.stock > 0 ? product.stock + ' en stock' : 'Agotado' }}
+                </span>
+            </div>
+            <div class="card-body">
+                <span class="card-category">{{ product.category_name }}</span>
+                <h4 class="card-title">{{ product.name }}</h4>
+                <p class="card-description" *ngIf="product.description">{{ product.description | slice:0:80 }}{{ product.description.length > 80 ? '...' : '' }}</p>
+            </div>
+            <div class="card-footer">
+                <span class="card-price">{{ formatPrice(product.price) }}</span>
+                <button class="btn btn-primary add-to-cart-btn" [disabled]="product.stock === 0">
+                    🛒 Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Mensaje cuando no hay productos -->
+        <div class="no-products" *ngIf="products.length === 0">
+            <p>No se encontraron productos</p>
+        </div>
+
+        <!-- Paginación -->
+        <div class="table-pagination" *ngIf="totalPages > 1">
+            <div class="pagination-info"></div>
+            <div class="pagination-controls">
+
+                <button class="btn btn-secondary btn-sm" [disabled]="!has_previous"
+                    (click)="onPageChange(currentPage - 1)">
+                    ← Anterior
+                </button>
+
+                <div class="page-numbers">
+                    <button class="page-btn" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                        (click)="onPageChange(page)">
+                        {{ page }}
+                    </button>
+                </div>
+                
+                <button class="btn btn-secondary btn-sm" [disabled]="!has_next" (click)="onPageChange(currentPage + 1)">
+                    Siguiente →
+                </button>
+            </div>
+        </div>
+</div>
