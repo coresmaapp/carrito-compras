@@ -37,6 +37,8 @@ export class List implements OnInit {
   
     showMessage: boolean = false;
     message: string = '';
+
+    showAlertAuth: boolean = false;
   
     showDelete: boolean = false;
   
@@ -109,9 +111,16 @@ export class List implements OnInit {
     // Creamos un nuevo objeto con las propiedades del producto + la nueva propiedad
     this.user = { ...product, isEdit: true }; 
   }
-  
-  
 
+  addToCart(product: Product): void {
+    console.log('Agregar al carrito:', product);
+    this.showAlertAuth = true;
+  }
+  
+  
+  onCancel(): void {
+    this.showAlertAuth = false;
+  }
   
   
     ngOnInit(): void {

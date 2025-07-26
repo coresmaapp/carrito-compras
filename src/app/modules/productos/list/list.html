@@ -1,6 +1,6 @@
 <div class="products-container">
     <div class="table-header">
-        <h3>¡Ofertas del día!</h3>
+        <h3>¡Ofertas del días!</h3>
         <div class="table-actions">
             <div class="search-box">
                <input #searchInput type="text" placeholder="Buscar productos..." class="search-input" (input)="onSearchInput(searchInput.value)">
@@ -30,7 +30,7 @@
             </div>
             <div class="card-footer">
                 <span class="card-price">{{ formatPrice(product.price) }}</span>
-                <button class="btn btn-primary add-to-cart-btn" [disabled]="product.stock === 0">
+                <button class="btn btn-primary add-to-cart-btn" [disabled]="product.stock === 0" (click)="addToCart(product)">
                     🛒 Agregar
                 </button>
             </div>
@@ -64,4 +64,16 @@
                 </button>
             </div>
         </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="showAlertAuth">
+  <div class="confirm-modal">
+    <h3 class="confirm-title">¡Aviso!</h3>
+    <p class="confirm-message">Tienes que estar autenticado para poder Agregar productos al carrito.</p>
+    
+    <div class="confirm-actions">
+      <button class="btn confirm-btn" (click)="onCancel()">Aceptar</button>
+    </div>
+  </div>
 </div>
